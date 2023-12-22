@@ -4,14 +4,14 @@ Arduino UNO R4 test-code to demonstrate:
   3. Switching between 48MHz HOCO and 8MHz MOCO internal oscillators (and PLL with XTAL if fitted)
   4. USB Module Disable (with code initiated Reset after timeout delay)
 
-Unlike a linear regulator which adds to the current, the onboard DC/DC converter trades Volts for Current and therefor the readings when powered from an external 9.0V supply to Vin show a lower power-consumption than would be measured on the +5V rail input itself (I don't have a USB DVM module). 
+Unlike a linear regulator which adds to the current, the onboard ISL854102FRZ DC/DC converter trades Volts for Current and therefor the readings when powered from an external 9.0V supply to Vin show a lower power-consumption than would be measured on the +5V rail input itself (I don't have a USB DVM module). 
 
 Standard R4 Minima - LED series resistors all 330 ohm
 =====================================================
 Board running with +9.0V VIN at 48 MHz HOCO clock with default IDE settings:
-  without sleep, USB active = c. 21.5 mA
-  with WFI and USB active   = c. 13.3 mA
-  with WFI but USB disabled = c. 11.2 mA
+  1. Without sleep, USB active = c. 21.5 mA
+  2. With WFI and USB active   = c. 13.3 mA
+  3. With WFI but USB disabled = c. 11.2 mA
 
 To properly get low-power operation some board mods are needed, as supplied the ON LED takes 8 to 9 mA from the +5V rail just by itself!
 It is likely that low-power modes are mostly of interest for stand-alone setups which are not connected to a host USB. 
@@ -22,14 +22,14 @@ Board changes for Low_Power
   2. L  LED series resistor changed to 1.7K (which = 1.8mA if 100% on).
 
 Board running with +9.0V VIN at 48 MHz HOCO clock with default IDE settings:
-  without sleep, USB active = c. 15.5 mA
-  with WFI and USB active   = c.  7.5 mA
-  with WFI but USB disabled = c.  5.3 mA
+  1. Without sleep, USB active = c. 15.5 mA
+  2. With WFI and USB active   = c.  7.5 mA
+  3. With WFI but USB disabled = c.  5.3 mA
 
 Board running with +9.0V VIN at 8 MHz MOCO clock with default IDE settings:
-  without sleep, USB active = c.  6.2 mA - HOCO still running for USBFS Module
-  with WFI and USB active   = c.  4.1 mA
-  with WFI but USB disabled = c.  2.8 mA - HOCO stopped
+  1. Without sleep, USB active = c.  6.2 mA - HOCO still running for USBFS Module
+  2. With WFI and USB active   = c.  4.1 mA
+  3. With WFI but USB disabled = c.  2.8 mA - HOCO stopped
 
 Further measurments with 1/16 and 1/64 clock divisors in C code file.
 
