@@ -14,7 +14,7 @@ Board running with +9.0V VIN at 48 MHz HOCO clock with default IDE settings:
   3. With WFI but USB disabled = c. 11.2 mA
 
 To properly get low-power operation some board mods are needed, as supplied the ON LED takes 8 to 9 mA from the +5V rail just by itself!
-It is likely that low-power modes are mostly of interest for stand-alone setups which are not connected to a host USB. 
+It is likely that low-power modes are mostly of interest for stand-alone setups which are not connected to a host USB - but turning off the internal USB 3v3 regulator also removes the +3v3 from the board's Power-Header's pin. 
 
 Board changes for Low_Power
 ===========================
