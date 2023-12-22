@@ -30,6 +30,10 @@ Susan Parker - 21st December 2023.
   ... turn off HOCO clock when USBFS is disabled if using MOCO 8MHz clock,
       or MOSC and PLL with external XTAL (e.g. EK-RA4M1 dev-board).
 
+Susan Parker - 22nd December 2023.
+  Add #define option to leave USB 3v3 power ON for board's +3V3 pin
+
+
   This code is "AS IS" without warranty or liability. 
 
   This program is free software: you can redistribute it and/or modify
@@ -196,6 +200,8 @@ Fastest possible pin writes and reads with the RA4M1 processor
 #define WFI_MS_DOWNCOUNT 1000
 #define WFI_SECONDS_DELAY  10
 
+// #define USB_3V3_REG_DISABLE  // Disable USB 3v3 linear-regulator - lose power from boards Power-Header's +3V3 pin! 
+
 // #define CLOCK_PLL    // ONLY use when external 12MHz crystal fitted e.g. EK-RA4M1 Dev-board
 
 bool wfi_flag = true;       // Start with WFI mode active
@@ -267,7 +273,9 @@ void loop()
           Serial.println("\nDisable USBFS module");
           delayMicroseconds(900);                        // Wait for USB serial print transaction...
           Serial.end();                                  // Probably does something?
+#ifdef USB_3V3_REG_DISABLE
           *USBFS_USBMC      = 0x0002;                    // Turn off USB power circuits
+#endif
           *USBFS_USBBCCTRL0 = 0x0000;                    // Turn off Pin Functions
           *USBFS_SYSCFG     = 0x0000;                    // USBFS Operation Disable
           delayMicroseconds(1);                          // Wait to ensure module stopped
